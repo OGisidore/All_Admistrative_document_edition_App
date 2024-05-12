@@ -1,18 +1,19 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-
-import { Navbar } from './components/Navbar'
-import { About } from './pages/About'
+import Header from './components/Header/Header'
 import { Home } from './pages/Home'
+import EditionPage from './pages/EditionPage/EditionPage'
+
+
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <Navbar />
-      <div className="container">
+       <div className=" w-full  flex flex-col items-center ">
+        <Header/>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/:slug" element={<EditionPage />} />
         </Routes>
       </div>
     </BrowserRouter>
