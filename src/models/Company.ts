@@ -1,9 +1,7 @@
-export interface Information{
-    name: string 
-    value: string 
-}
+import { Information } from "./Information"
+
 export interface Company{
-    _id: number
+    _id: string
     logo_link : string
     company_name : string
     address : string
@@ -15,7 +13,7 @@ export interface Company{
     email:string
     informations : Information[]
     created_at: Date
-    updated_at: Date
+    updated_at?: Date
 }
 
 

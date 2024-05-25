@@ -4,9 +4,10 @@
   App Name : E-commerce with React.Js
   Created At : 23/04/2024 21:57:29
 */
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
+import BugReportForm from '../BugReportForm/BugReportForm';
 
 
 interface HeaderProps {
@@ -15,11 +16,12 @@ interface HeaderProps {
 
 
 const Header: FC<HeaderProps> = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
 
 
 
   useEffect(() => {
-    window.scrollTo(0, 0)
     const runLocalData = async () => {
 
     }
@@ -32,10 +34,13 @@ const Header: FC<HeaderProps> = () => {
         <Link to={"/"} className=''>
           <img src="/logo.png" alt="" height={100} />
         </Link>
-        <div className=' p-4  rounded-full cursor-pointer hover:bg-gray-600  bg-black text-white  '>
+        <div className=' p-4  rounded-full cursor-pointer hover:bg-gray-600  bg-black text-white  ' onClick={()=>setIsOpen(true)}>
           Signaler un bug
         </div>
       </div>
+      {
+        isOpen && <BugReportForm display={()=>setIsOpen(false)}/>
+      }
       {/* <p className="text-black">
         Creez en quelque secondes tous vos documents admnistratifs
       </p> */}

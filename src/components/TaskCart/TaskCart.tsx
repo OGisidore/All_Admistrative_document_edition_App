@@ -21,7 +21,6 @@ const TaskCart : FC<TaskCartProps> = ({task}) =>{
 
 
     useEffect(() => {
-      window.scrollTo(0,0)
       const runLocalData = async () => {
        
         

@@ -7,71 +7,88 @@
 import React, { FC, useEffect } from 'react';
 import './CopieHeader.css';
 import { useParams } from 'react-router-dom';
+import { ADD_TO_BILL } from '../../redux/actions/actionTypes';
+import { useDispatch } from 'react-redux';
 
 
 interface CopieHeaderProps {
- 
+
 }
 
-
-const CopieHeader : FC<CopieHeaderProps> = () =>{
+const CopieHeader: FC<CopieHeaderProps> = () => {
+  const dispatch = useDispatch()
   const { slug } = useParams()
 
+  const handleSetBIllInfo = (e: any) => {
+    const { name, value, checked, type } = e.target
+    let payloadValue;
+    if (type === "checkbox") {
+      payloadValue = checked
+    } else {
+      payloadValue = value
+    }
+    dispatch({
+      type: ADD_TO_BILL,
+      key: name,
+      unique: true,
+      payload: payloadValue
 
-
-    useEffect(() => {
-      window.scrollTo(0,0)
-      const runLocalData = async () => {
-
-      }
-      runLocalData()
     })
+
+  }
+
+  useEffect(() => {
+    const runLocalData = async () => {
+
+    }
+    runLocalData()
+  })
 
   return (
     <div className="header flex flex-col items-center">
-    <div className="headerContent p-2 rounded-b-lg   bg-gray-200">
-      <div className="modelSelect flex ">
-        <label htmlFor="modele">Modele de {slug} : </label>
-        <select
-          name="modele"
-          defaultValue={''}
-          
-          id="model"
-        >
-          <option value="Entreprise avec TVA ">
-            {' '}
-            Entreprise avec TVA{' '}
-          </option>
-          <option value="Entreprise sans TVA ">
-            {' '}
-            Entreprise sans TVA{' '}
-          </option>
-          <option value="Auto-entrepreneur "> Auto-entrepreneur </option>
-        </select>
-      </div>
-      {
-        slug === "fature" && <div className="mentionSelect flex ">
-          <label htmlFor="mention">Mentions à afficher  : </label>
-          <div className="options flex ">
-            <div className="proforma flex">
-              <input type="checkbox" name="proforma"  id="proforma" />
-              <label htmlFor="proforma">proforma</label>
-            </div>
-            <div className="duplicata flex">
-              <input
-                type="checkbox"
-                
-                name="duplicata"
-                id="duplicata"
-              />
-              <label htmlFor="duplicata">duplicata</label>
+      <div className="headerContent p-2 rounded-b-lg   bg-gray-200">
+        <div className="modelSelect flex ">
+          <label htmlFor="modele">Modele de {slug} : </label>
+          <select
+            name="company_type"
+            defaultValue={''}
+            onChange={handleSetBIllInfo}
+            id="model"
+          >
+            <option value="Entreprise avec TVA ">
+              {' '}
+              Entreprise avec TVA{' '}
+            </option>
+            <option value="Entreprise sans TVA ">
+              {' '}
+              Entreprise sans TVA{' '}
+            </option>
+            <option value="Auto-entrepreneur "> Auto-entrepreneur </option>
+          </select>
+        </div>
+        {
+          slug === "fature" && <div className="mentionSelect flex ">
+            <label htmlFor="mention">Mentions à afficher  : </label>
+            <div className="options flex ">
+              <div className="proforma flex">
+                <input type="checkbox" onChange={handleSetBIllInfo} name="proforma" id="proforma" />
+                <label htmlFor="proforma">proforma</label>
+              </div>
+              <div className="duplicata flex">
+                <input
+                  type="checkbox"
+                  onChange={handleSetBIllInfo}
+                  name="duplicata"
+                  id="duplicata"
+                />
+                <label htmlFor="duplicata">duplicata</label>
+              </div>
             </div>
           </div>
-        </div>
-      }
+        }
 
+      </div>
     </div>
-  </div>
   );
 }
 

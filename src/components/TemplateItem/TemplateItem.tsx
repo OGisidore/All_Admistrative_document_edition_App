@@ -7,6 +7,8 @@
 import React, { FC, useEffect } from 'react';
 import './TemplateItem.css';
 import { Design } from '../../models/Design';
+import { useDispatch } from 'react-redux';
+import { ADD_TO_BILL } from '../../redux/actions/actionTypes';
 
 
 interface TemplateItemProps {
@@ -16,11 +18,19 @@ interface TemplateItemProps {
 
 
 const TemplateItem : FC<TemplateItemProps> = ({style}) =>{
+  const dispatch = useDispatch()
 
+const handleAddDesign = ()=>{
+  dispatch({
+    type: ADD_TO_BILL,
+    key: "design_Style",
+    unique: true,
+    payload: style
 
+  })
+}
 
     useEffect(() => {
-      window.scrollTo(0,0)
       const runLocalData = async () => {
 
       }
@@ -28,7 +38,7 @@ const TemplateItem : FC<TemplateItemProps> = ({style}) =>{
     })
 
   return (
-    <div  className={" w-6 cursor-pointer p-8 " + style.style + " h-10"}> 
+    <div onClick={handleAddDesign}  className={" w-6 cursor-pointer p-8 " + style.style + " h-10"}> 
       
     </div>
   );

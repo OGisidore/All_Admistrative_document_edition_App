@@ -9,6 +9,7 @@ import './PageBanner.css';
 import { useParams } from 'react-router-dom';
 import { Service } from '../../models/Services';
 import { services } from '../../apidata/data';
+import { Link } from 'react-router-dom';
 
 
 interface PageBannerProps {
@@ -23,7 +24,6 @@ const PageBanner : FC<PageBannerProps> = () =>{
 
 
     useEffect(() => {
-      window.scrollTo(0,0)
       const runLocalData = async () => {
 
       }
@@ -36,7 +36,7 @@ const PageBanner : FC<PageBannerProps> = () =>{
       <div className="PageTitle">
         <h1>{service.name}</h1>
       </div>
-      <div className={`pageRoot `}>home / {service.name}</div>
+      <div className={`pageRoot `}> <Link to={"/"}>home</Link> / {service.name}</div>
     </div>
   </div>
   );

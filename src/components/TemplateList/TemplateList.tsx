@@ -21,7 +21,6 @@ const TemplateList: FC<TemplateListProps> = () => {
 
 
   useEffect(() => {
-    window.scrollTo(0, 0)
     const runLocalData = async () => {
 
     }

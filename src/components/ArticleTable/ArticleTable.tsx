@@ -4,7 +4,7 @@
   App Name : E-commerce with React.Js
   Created At : 12/05/2024 14:41:46
 */
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import './ArticleTable.css';
 import TableHeader from '../TableHeader/TableHeader';
 import ArticleList from '../ArticleList/ArticleList';
@@ -17,11 +17,11 @@ interface ArticleTableProps {
 
 
 const ArticleTable: FC<ArticleTableProps> = () => {
+  const [ color ,setColor]= useState<string>("")
 
 
 
   useEffect(() => {
-    window.scrollTo(0, 0)
     const runLocalData = async () => {
 
     }
@@ -29,17 +29,17 @@ const ArticleTable: FC<ArticleTableProps> = () => {
   })
 
   return (
-    <div className="ArticleTable">
+    <div className="ArticleTable mt-7">
 
       <div className="exucutiveDate">
         <label htmlFor="execution_date"> {' '}  Date d'exécution de la vente ou de la prestation :{' '} </label>
-        <input type="date" name="execution_date" id="execution_date" />
+        <input type="text" value={new Date().toLocaleDateString()} name="execution_date" id="execution_date" />
       </div>
 
       <div className="headColor flex justify-between">
         <div className="ColorBox">
           <label htmlFor="color">Couleur de l'entête du tableau :</label>
-          <input type="color" name="color" id="color" />
+          <input type="color" onChange={(e)=>setColor(e.target.value)} name="color" id="color" />
         </div>
         <div className="warning">
           Veuillez utiliser le point au lieu de la virgule pour les nombres.
@@ -48,10 +48,10 @@ const ArticleTable: FC<ArticleTableProps> = () => {
 
       <div className="tables">
 
-        <TableHeader/>
-        <ArticleList/>
-        <TableFoot/>
-        
+        <TableHeader color={color} />
+        <ArticleList />
+        <TableFoot />
+
       </div>
     </div>
   );
