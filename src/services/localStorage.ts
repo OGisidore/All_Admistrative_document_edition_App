@@ -1,7 +1,6 @@
-import { Client } from "../models/Client"
 
 
-export const setItem =(key:string,value : Client)=>{
+export const setItem =(key:string,value : any)=>{
     
     if (window.localStorage) {
         window.localStorage.setItem(key,JSON.stringify(value))

@@ -2,7 +2,7 @@ import { Information } from "./Information"
 
 export interface Company{
     _id: string
-    logo_link : string
+    logo_link : Blob
     company_name : string
     address : string
     postal_code : number

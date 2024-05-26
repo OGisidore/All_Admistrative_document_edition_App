@@ -9,6 +9,8 @@ import './CopieHeader.css';
 import { useParams } from 'react-router-dom';
 import { ADD_TO_BILL } from '../../redux/actions/actionTypes';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { getBill } from '../../redux/selectors/selectors';
 
 
 interface CopieHeaderProps {
@@ -18,6 +20,7 @@ interface CopieHeaderProps {
 const CopieHeader: FC<CopieHeaderProps> = () => {
   const dispatch = useDispatch()
   const { slug } = useParams()
+  const bill = useSelector(getBill)
 
   const handleSetBIllInfo = (e: any) => {
     const { name, value, checked, type } = e.target
@@ -51,7 +54,7 @@ const CopieHeader: FC<CopieHeaderProps> = () => {
           <label htmlFor="modele">Modele de {slug} : </label>
           <select
             name="company_type"
-            defaultValue={''}
+            defaultValue={bill.company_type}
             onChange={handleSetBIllInfo}
             id="model"
           >
@@ -71,7 +74,7 @@ const CopieHeader: FC<CopieHeaderProps> = () => {
             <label htmlFor="mention">Mentions à afficher  : </label>
             <div className="options flex ">
               <div className="proforma flex">
-                <input type="checkbox" onChange={handleSetBIllInfo} name="proforma" id="proforma" />
+                <input type="checkbox" checked={bill.proforma} onChange={handleSetBIllInfo} name="proforma" id="proforma" />
                 <label htmlFor="proforma">proforma</label>
               </div>
               <div className="duplicata flex">
@@ -80,6 +83,7 @@ const CopieHeader: FC<CopieHeaderProps> = () => {
                   onChange={handleSetBIllInfo}
                   name="duplicata"
                   id="duplicata"
+                  checked={bill.duplicata}
                 />
                 <label htmlFor="duplicata">duplicata</label>
               </div>

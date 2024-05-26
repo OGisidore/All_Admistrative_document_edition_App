@@ -3,27 +3,7 @@ import { Bill } from "../models/BIll";
 import { db } from "./database";
 
 /************************** fonction d'ajout de Bill ****************** */
-export const addBill = async (bill: Bill) => {
-    
-    try {
-        await db.addData("Bills", bill)
 
-        return {
-            isSuccess: true,
-            message: "Bill added succesfully"
-        }
-
-
-    } catch (error) {
-        console.log({ error });
-        return {
-            isSuccess: false,
-            error
-        }
-
-
-    }
-}
 
 /************************** fonction de mise a jour de Bill ****************** */
 
@@ -107,6 +87,40 @@ export const deleteBill = async (_id: string) => {
             isSuccess: true,
             message: "Bill deleted succesfully"
         }
+
+
+    } catch (error) {
+        console.log({ error });
+        return {
+            isSuccess: false,
+            error
+        }
+
+
+    }
+}
+export const addBill = async (bill: Bill) => {
+    
+    
+    try {
+        const existing = await getBill(bill._id)
+
+        if(existing){
+            await updateBill(bill)
+            return {
+                isSuccess: true,
+                message: "Bill updated successfully"
+              };
+        } else {
+            await db.addData("Bills", bill)
+
+            return {
+                isSuccess: true,
+                message: "Bill added succesfully"
+            }
+
+        }
+       
 
 
     } catch (error) {

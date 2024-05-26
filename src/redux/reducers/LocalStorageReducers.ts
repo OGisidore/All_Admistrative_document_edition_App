@@ -2,11 +2,12 @@
 import { CalculateHTAmount, CalculateTTCAmount, generateID } from "../../Helpers/utilities";
 import { Bill } from "../../models/BIll";
 import { Item } from "../../models/Item";
+import { getItem } from "../../services/localStorage";
 import { ADD_TO_BILL, REMOVE_FROM_BILL } from "../actions/actionTypes";
 import { BillAction } from "../actions/types";
 
-
-const bill: Bill = {
+const billSelect : Bill = getItem("bill")
+const bill: Bill = billSelect ? billSelect :  {
     _id: generateID(),
     reference: "",
     bill_number: 0,
@@ -33,7 +34,7 @@ const bill: Bill = {
     },
     company: {
         _id: generateID(),
-        logo_link: '',
+        logo_link :new Blob(),
         company_name: '',
         address: '',
         postal_code: 0,
