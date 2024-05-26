@@ -11,13 +11,15 @@ import { IoSearch } from 'react-icons/io5'
 import './BillSearching.css'
 import { getAllBill } from '../../database/apialldocs'
 import { Bill } from '../../models/BIll'
-import { setItem } from '../../services/localStorage'
+import { useDispatch } from 'react-redux'
+import { ADD_TO_BILL } from '../../redux/actions/actionTypes'
 
 interface BillSearchingProps {}
 
 const BillSearching: FC<BillSearchingProps> = () => {
   const [bills, setBills] = useState<Bill[]>([])
   const [results, setResults] = useState<Bill[]>([])
+  const dispatch = useDispatch()
 
   const handleSeach = (e: any) => {
     e.preventDefault()
@@ -38,7 +40,13 @@ const BillSearching: FC<BillSearchingProps> = () => {
     }
     runLocalData()
   }, [])
+const handleSetBil = (bl : Bill)=>{
+  dispatch({
+    type : ADD_TO_BILL,
+   payload : bl
+  })
 
+}
   return (
     <div className="BillSearching flex flex-col mt-3 pr-10 items-end">
       <div className="inline-flex flex-col justify-center relative text-gray-500">
@@ -58,7 +66,7 @@ const BillSearching: FC<BillSearchingProps> = () => {
             <h3 className="mt-2 text-sm">Facture:</h3>
               {results.map((bill) => {
                 return (
-                  <li key={bill._id} onClick={()=> setItem("bill", bill)} className=" py-1 border-b-2 border-gray-100  cursor-pointer hover:bg-yellow-50 hover:text-gray-900">
+                  <li key={bill._id} onClick={()=>handleSetBil(bill)} className=" py-1 border-b-2 border-gray-100  cursor-pointer hover:bg-yellow-50 hover:text-gray-900">
                     <RiBillLine />
                     <b> facture de {bill.reference}</b>
                   </li>

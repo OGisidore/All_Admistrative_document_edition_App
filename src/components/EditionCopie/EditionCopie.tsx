@@ -44,7 +44,7 @@ const handleChange = (e:any) =>{
     })
 
   return (
-    <div id='pdf-content' className={'EditCopy border-solid relative border-gray-800 border-1 bg-white w-[98%l m-2 px-2 mt-2' +  bill.design_Style.style}>
+    <div id='pdf-content' className={'EditCopy border-solid relative border-gray-800 border-1 bg-white w-[98%l m-2 px-2 mt-2' +  bill.design_Style.style + "shadow-none"}>
       <CopieHeader/>
       {bill.duplicata && <div className="absolute text-stroke"> duplicata </div>}
       <Informations/>

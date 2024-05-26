@@ -32,7 +32,9 @@ const EditionPage: FC<EditionPageProps> = () => {
 
     try {
       const canvas = await html2canvas(input)
-      const imgData = canvas.toDataURL('image/png')
+      const imgData = canvas.toDataURL('image/jpg')
+
+
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'px',
@@ -42,7 +44,7 @@ const EditionPage: FC<EditionPageProps> = () => {
       const width = pdf.internal.pageSize.getWidth()
       const heigth = (canvas.height * width) / canvas.width
 
-      pdf.addImage(imgData, 'PNG', 0, 0, width, heigth)
+      pdf.addImage(imgData, 'jpg', 0, 0, width, heigth)
       pdf.save(`${bill.reference}.pdf`)
       
      
@@ -57,7 +59,7 @@ const EditionPage: FC<EditionPageProps> = () => {
   }, [])
 
   return (
-    <div className="TaskPage bg-white shadow-2xl w-full  main">
+    <div className="TaskPage bg-white  w-full  main">
       <PageBanner />
       <BillSearching />
       <TemplateList />
