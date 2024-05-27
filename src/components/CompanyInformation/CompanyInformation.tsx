@@ -120,7 +120,7 @@ const CompanyInformation: FC<CompanyInformationProps> = () => {
             placeholder="postal_code"
             defaultValue={company.postal_code}
           />
-          <input type="text" name="city" id="SCity" placeholder="city" />
+          <input type="text" defaultValue={company.city} name="city" id="SCity" placeholder="city" />
         </div>
         <div className="socityCountry p-[0.2rem]">
           <input

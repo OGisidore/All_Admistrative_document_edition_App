@@ -52,7 +52,7 @@ const handleChange = (e:any) =>{
       <ArticleTable/>
       .  <div className="infosupp">
           <div className="subT">infos supplementaire</div>
-          <textarea name="informations" onChange={handleChange} id="info" cols={100} rows={2}></textarea>
+          <textarea name="informations" defaultValue={bill.informations} onChange={handleChange} id="info" cols={100} rows={2}></textarea>
         </div>
 
     </div>

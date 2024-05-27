@@ -114,6 +114,7 @@ const Article: FC<ArticleProps> = ({ item }) => {
         <textarea
           name="designation"
           placeholder='designation'
+          defaultValue={item.designation}
 
           onChange={(e) => handleHeigthChange(e)}
           style={{ height }}
@@ -127,7 +128,7 @@ const Article: FC<ArticleProps> = ({ item }) => {
             Quantite
           </label>
         </div>
-        <input type="text" onChange={handleChange} name="quantity" />
+        <input type="text" defaultValue={item.quantity} onChange={handleChange} name="quantity" />
       </div>
       <div className=" col-span-12 sm:col-span-1 lg:col-span-1 md:col-span-4 p-1 border-r-[0.1rem] border-y-0 border-l-0 border-solid border-gray-900">
         <div className="lab">
@@ -135,7 +136,7 @@ const Article: FC<ArticleProps> = ({ item }) => {
             unite
           </label>
         </div>
-        <select className="w-[99%]" onChange={handleChange} name="unit" id="selectUnit">
+        <select className="w-[99%]" defaultValue={item.unit} onChange={handleChange} name="unit" id="selectUnit">
           <option disabled value="">
             unite
           </option>
@@ -155,7 +156,7 @@ const Article: FC<ArticleProps> = ({ item }) => {
             Prix unitaire
           </label>
         </div>
-        <input type="text" onChange={handleChange} name="unit_price" />
+        <input type="text" defaultValue={item.unit_price} onChange={handleChange} name="unit_price" />
       </div>
       <div className=" p-1 col-span-12 sm:col-span-1 lg:col-span-1 md:col-span-4 border-r-[0.1rem] border-y-0 border-l-0 border-solid border-gray-900">
         <div className="lab">
@@ -163,7 +164,7 @@ const Article: FC<ArticleProps> = ({ item }) => {
             Remise %
           </label>
         </div>
-        <input type="text" onChange={handleChange} name="discount" />
+        <input type="text" defaultValue={item.discount} onChange={handleChange} name="discount" />
       </div>
       <div className=" col-span-12 sm:col-span-1 lg:col-span-1 md:col-span-4 p-1 border-r-[0.1rem] border-y-0 border-l-0 border-solid border-gray-900">
         <div className="lab">
@@ -187,7 +188,7 @@ const Article: FC<ArticleProps> = ({ item }) => {
               Tva{' '}
             </label>
           </div>
-          <select className="w-[99%]" onChange={handleChange} name="tva_rate" id=" tva_rate">
+          <select className="w-[99%]" defaultValue={item.tva_rate} onChange={handleChange} name="tva_rate" id=" tva_rate">
             {tvaPercent.map((tva) => {
               return (
                 <option key={tva._id} value={tva.value}>
@@ -212,6 +213,7 @@ const Article: FC<ArticleProps> = ({ item }) => {
                 type="checkbox"
                 className="w-[1rem]"
                 name="Tit"
+                
 
                 id=""
               />

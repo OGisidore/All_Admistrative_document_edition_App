@@ -12,7 +12,7 @@ import { currencys, discountRates, limitoptions, paymentMode } from '../../Helpe
 import { useDispatch } from 'react-redux';
 import { ADD_TO_BILL } from '../../redux/actions/actionTypes';
 import { generateID } from '../../Helpers/utilities';
-import { getRegulation } from '../../redux/selectors/selectors';
+import { getBill, getRegulation } from '../../redux/selectors/selectors';
 import { useSelector } from 'react-redux';
 
 
@@ -28,6 +28,7 @@ const DetailsAndRegulation: FC<DetailsAndRegulationProps> = () => {
   const [displayRateInput, setDisplayRateInput] = useState<boolean>(false)
   const dispatch = useDispatch()
   const regulation = useSelector(getRegulation)
+  const bill = useSelector(getBill)
 
   const handleAddArticle = () => {
 
@@ -131,17 +132,17 @@ const DetailsAndRegulation: FC<DetailsAndRegulationProps> = () => {
 
       </div>
       <div className="addDiscountLIne">
-        <input type="checkbox" onChange={handleSetBIllInfo} name="add_deposit" id="add_deposit" />
+        <input type="checkbox" checked={bill.add_deposit} onChange={handleSetBIllInfo} name="add_deposit" id="add_deposit" />
         <label htmlFor="forAddDiscount">Ajouter une case Remise globale en dessous de la case Total HT.</label>
       </div>
       <div className="addDepositCase">
-        <input type="checkbox" onChange={handleSetBIllInfo} name="Add_discount" id="Add_discount" />
+        <input type="checkbox" checked={bill.Add_discount} onChange={handleSetBIllInfo} name="Add_discount" id="Add_discount" />
         <label htmlFor="Add_discount">Ajouter une case Acompte juste au dessus de la case Net à payer.
         </label>
       </div>
       <div className="currencyChoiceCase my-[2rem]">
         <label htmlFor="currencySelect">Symbole, unité ou devise monétaire </label>
-        <select name="currency" onChange={handleSetBIllInfo} className='w-[8rem]' id="currencySelect">
+        <select name="currency" defaultValue={bill.currency} onChange={handleSetBIllInfo} className='w-[8rem]' id="currencySelect">
           <option value="CFA">CFA</option>
           {
             currencys.map((currency, index: number) => {
@@ -160,14 +161,14 @@ const DetailsAndRegulation: FC<DetailsAndRegulationProps> = () => {
                 <div className="ctn flex gap-2">
                   <div className="select">
                     <label htmlFor="Date">Date  : </label>
-                    <select name="date"  onChange={handleChange} id="Date">
+                    <select name="date" defaultValue={regulation.date} onChange={handleChange} id="Date">
                       <option value="undefined">A ne pas preciser</option>
                       <option value={"Saisir une date"} >Saisir une date </option>
                     </select>
                   </div>
 
                   {
-                    editDateInput && <input onChange={handleChange} type="date" name="date" />
+                    editDateInput && <input defaultValue={regulation.date} onChange={handleChange} type="date" name="date" />
                   }
                 </div>
 
@@ -179,7 +180,7 @@ const DetailsAndRegulation: FC<DetailsAndRegulationProps> = () => {
               <div className="ctn flex gap-2">
                 <div className="selection">
                   <label htmlFor="LimitDate">Date limite : </label>
-                  <select name="limit_date" onChange={handleChange} id="LimitDate">
+                  <select name="limit_date" defaultValue={regulation.limit_date} onChange={handleChange} id="LimitDate">
                     {
                       limitoptions.map((option, index: number) => {
                         return <option key={index} value={option}>{option}</option>
@@ -188,7 +189,7 @@ const DetailsAndRegulation: FC<DetailsAndRegulationProps> = () => {
                   </select>
                 </div>
                 {
-                  displaylimitDateInput && <input onChange={handleChange} type="date" name="limit_date" />
+                  displaylimitDateInput && <input onChange={handleChange} defaultValue={regulation.limit_date} type="date" name="limit_date" />
                 }
 
               </div>
@@ -196,7 +197,7 @@ const DetailsAndRegulation: FC<DetailsAndRegulationProps> = () => {
             </li>
             <li>
               <label htmlFor="Payment_method">Mode : </label>
-              <select name="Payment_method" onChange={handleChange} id="mode">
+              <select name="Payment_method" defaultValue={regulation.Payment_method} onChange={handleChange} id="mode">
                 {
                   paymentMode.map((mode, index: number) => {
                     return <option key={index} value={mode}>{mode}</option>
@@ -206,7 +207,7 @@ const DetailsAndRegulation: FC<DetailsAndRegulationProps> = () => {
             </li>
             <li>
               <label htmlFor="discountRate">Taux d'escompte en cas de paiement anticipée : </label>
-              <select name="discount_rate" onChange={handleChange} id="discountRate">
+              <select name="discount_rate" defaultValue={regulation.discount_rate} onChange={handleChange} id="discountRate">
                 <option value="Ne pas preciser"> Ne pas preciser</option>
                 <option value="Neant"> Neant </option>
                 {
@@ -220,7 +221,7 @@ const DetailsAndRegulation: FC<DetailsAndRegulationProps> = () => {
               <div className="ctn 'flex gap-2'">
                 <div className="selectRate">
                   <label htmlFor="anualRatePenality">Taux annuel de pénalité en cas de retard de paiement : : </label>
-                  <select name="latePayment_penality_rate" onChange={handleChange} id="latePayment_penality_rate">
+                  <select name="latePayment_penality_rate" defaultValue={regulation.latePayment_penality_rate} onChange={handleChange} id="latePayment_penality_rate">
                     <option value="A La reception">A La reception</option>
                     <option value="3x le taux">3 fois le taux legal selon la loi n 2008-776 du 04 aout 2008 </option>
                     <option value="Saisir un taux">Saisir un taux</option>
@@ -237,7 +238,7 @@ const DetailsAndRegulation: FC<DetailsAndRegulationProps> = () => {
             <li>
 
               <label htmlFor="delayIndermnity">En cas de retard de paiement, application d'une indemnité forfaitaire pour frais de recouvrement de 40€ selon l'article D. 441-5 du code du commerce : </label>
-              <input type="checkbox" onChange={handleChange} name="latePayment_penality_feeclause" id="delayIndermnity" /> <span>oui</span>
+              <input type="checkbox" checked={regulation.latePayment_penality_feeclause} onChange={handleChange} name="latePayment_penality_feeclause" id="delayIndermnity" /> <span>oui</span>
 
             </li>
           </ul>

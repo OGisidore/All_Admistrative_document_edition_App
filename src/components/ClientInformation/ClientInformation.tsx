@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from 'react-redux';
-import { getClient, getProforma } from '../../redux/selectors/selectors';
+import { getBill, getClient, getProforma } from '../../redux/selectors/selectors';
 import { ADD_TO_BILL } from '../../redux/actions/actionTypes';
 import { Information } from '../../models/Information';
 import InfosSup from '../InfosSup/InfosSup';
@@ -27,6 +27,7 @@ const ClientInformation: FC<ClientInformationProps> = () => {
   const dispatch = useDispatch()
   const client = useSelector(getClient)
   const proforma = useSelector(getProforma)
+  const bill = useSelector(getBill)
 
 
   const handleChange = (e: any) => {
@@ -80,12 +81,13 @@ const ClientInformation: FC<ClientInformationProps> = () => {
       <form className="p-3 flex items-stretch flex-col">
         <div className="facturNumero border-solid  border-0 border-l-2 p-2 sm:w-[100%] md:w-[100%] lg:w-[80%]  self-end">
           <div className="number">
-            <label htmlFor="bill_number">{slug?.toUpperCase()} {proforma ? "Proforma" : ""}  N° </label>
+            <label htmlFor="bill_number">{slug?.toUpperCase()} {proforma ? "PROFORMA" : ""}  N° </label>
             <input
               type="text"
               className="w-[50%]"
               name="bill_number"
               id="bill_number"
+              defaultValue={bill.bill_number}
               onChange={handleSetBIllInfo}
             />
           </div>
@@ -107,6 +109,7 @@ const ClientInformation: FC<ClientInformationProps> = () => {
                 onChange={handleChange}
                 type="text"
                 name="client_code"
+                defaultValue={client.client_code}
                 id="client_code"
                 placeholder="Code client (facultatif)"
               />
@@ -115,6 +118,7 @@ const ClientInformation: FC<ClientInformationProps> = () => {
               <input
                 type="text"
                 onChange={handleChange}
+                defaultValue={client.civility}
                 name="civility"
                 id="civility"
                 placeholder="Civility"
@@ -124,6 +128,7 @@ const ClientInformation: FC<ClientInformationProps> = () => {
               <input
                 type="text"
                 onChange={handleChange}
+                defaultValue={client.full_name}
                 name="full_name"
                 id="full_name"
                 placeholder="Nom et Prenom du client"
@@ -135,6 +140,7 @@ const ClientInformation: FC<ClientInformationProps> = () => {
                 onChange={handleChange}
                 name="address"
                 id="client_address"
+                defaultValue={client.address}
                 placeholder="Address du client"
               />
             </div>
@@ -142,6 +148,7 @@ const ClientInformation: FC<ClientInformationProps> = () => {
               <input
                 type="text"
                 onChange={handleChange}
+                defaultValue={client.postal_code}
                 name="postal_code"
                 id="postal_code"
                 className="w-[20%] mr-1"
@@ -150,6 +157,7 @@ const ClientInformation: FC<ClientInformationProps> = () => {
               <input
                 type="text"
                 onChange={handleChange}
+                defaultValue={client.city}
                 name="city"
                 id="c_City"
                 placeholder="ville"
@@ -157,12 +165,13 @@ const ClientInformation: FC<ClientInformationProps> = () => {
             </div>
 
             <div className="clientCountry p-[0.2rem]">
-              <input type="text" name="country" id="country" onChange={handleChange} placeholder="Pays" />
+              <input type="text" name="country" defaultValue={client.country} id="country" onChange={handleChange} placeholder="Pays" />
             </div>
             <div className="clientEmail p-[0.2rem]">
               <input
                 type="text"
                 name="phone"
+                defaultValue={client.email}
                 onChange={handleChange}
                 id="phone "
                 placeholder=" telephone"
@@ -172,6 +181,7 @@ const ClientInformation: FC<ClientInformationProps> = () => {
               <input
                 type="text"
                 name="email"
+                defaultValue={client.phone}
                 onChange={handleChange}
                 id="phone "
                 placeholder="email"
@@ -190,7 +200,7 @@ const ClientInformation: FC<ClientInformationProps> = () => {
       </form>
       <div className="titleAdInput mt-2">
         <p className="font-bold ">Mettez ici un titre</p>
-        <input type="text" onChange={handleSetBIllInfo} name="title" id="titleAdd" className="w-[85%]" />
+        <input type="text" onChange={handleSetBIllInfo} name="title" defaultValue={bill.title} id="titleAdd" className="w-[85%]" />
       </div>
     </div>
   );
