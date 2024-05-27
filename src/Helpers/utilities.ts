@@ -4,6 +4,12 @@ export const generateID = ()=>{
       return (Math.random()*16 | 0 ).toString(16)
     }).toLowerCase();
   }
+  export const generateRef = ()=>{
+    var timestamp = (new Date().getTime() / 1000 | 0).toString(8);
+    return timestamp + 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'.replace(/[x]/g, function(){
+      return (Math.random()*8 | 0 ).toString(8)
+    }).toUpperCase();
+  }
   
 export const CalculateHTAmount = (quantity:number, unitPrice:number, discount:number)=>{
   const total = quantity * unitPrice

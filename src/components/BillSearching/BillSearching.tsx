@@ -28,7 +28,7 @@ const BillSearching: FC<BillSearchingProps> = () => {
     console.log(bills)
     let tag = value.trim()
     let result = bills.filter(
-      (t) => t.reference.toLowerCase().search(tag.toLowerCase()) !== -1
+      (t) => t.client.full_name.toLowerCase().search(tag.toLowerCase()) !== -1
     )
     console.log({ result })
     setResults(result)

@@ -1,5 +1,5 @@
 
-import { CalculateHTAmount, CalculateTTCAmount, generateID } from "../../Helpers/utilities";
+import { CalculateHTAmount, CalculateTTCAmount, generateID, generateRef } from "../../Helpers/utilities";
 import { Bill } from "../../models/BIll";
 import { Item } from "../../models/Item";
 import { ADD_TO_BILL, REMOVE_FROM_BILL } from "../actions/actionTypes";
@@ -8,7 +8,7 @@ import { BillAction } from "../actions/types";
 
 const bill: Bill =  {
     _id: generateID(),
-    reference: "",
+    reference: generateRef(),
     bill_number: 0,
     discount: 0,
     duplicata: false,
@@ -149,7 +149,6 @@ export const billReducers = (state = initState,
                 state.tva_rate = state.article_lists.reduce((total: number, article: Item) => total + Number(article.amount_ttc), 0)
                 state.amount_ttc = state.tva_rate
                 state.netAmount = state.amount_ttc - state.discount
-                state.reference = state.client.full_name
 
 
             } else {

@@ -31,6 +31,7 @@ const handleChange = (e:any) =>{
     key: name,
     unique: true,
     payload: value
+    
 
   })
 
